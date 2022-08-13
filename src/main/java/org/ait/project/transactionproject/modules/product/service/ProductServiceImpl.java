@@ -35,11 +35,6 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product getProductByName(String name){
-        return productRepository.findByName(name);
-    }
-
-    @Override
     public String deleteProduct(int id){
         productRepository.deleteById(id);
         return "Successful to delete product with Id = "+id;

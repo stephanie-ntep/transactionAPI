@@ -37,11 +37,6 @@ public class ProductController implements ProductService {
         return productService.getProductById(id);
     }
 
-    @GetMapping("/product/{name}")
-    public Product getProductByName(@PathVariable  String name) {
-        return productService.getProductByName(name);
-    }
-
     @DeleteMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable int id){
         return productService.deleteProduct(id);

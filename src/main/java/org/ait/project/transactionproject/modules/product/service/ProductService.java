@@ -13,10 +13,7 @@ public interface ProductService {
 
     Product getProductById(int id);
 
-    Product getProductByName(String name);
-
     String deleteProduct(int id);
 
     Product updateProduct(Product product);
-
 }
