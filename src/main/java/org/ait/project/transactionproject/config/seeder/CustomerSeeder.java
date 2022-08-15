@@ -1,4 +1,4 @@
-package org.ait.project.transactionproject.modules.customer.service.seeder;
+package org.ait.project.transactionproject.config.seeder;
 
 import org.ait.project.transactionproject.modules.customer.model.entity.Customer;
 import org.ait.project.transactionproject.modules.customer.model.repository.CustomerRepository;

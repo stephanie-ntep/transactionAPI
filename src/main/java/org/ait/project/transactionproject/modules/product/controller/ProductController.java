@@ -12,20 +12,16 @@ import java.util.List;
 public class ProductController implements ProductService {
     private final ProductService productService;
 
-    @PutMapping("/updateproduct")
+    @PutMapping("/updateproduct/{id}")
     public Product updateProduct(@RequestBody Product product){
         return productService.updateProduct(product);
     }
 
     @PostMapping("/addproduct")
-    public Product saveProduct(Product product) {
-        return productService.saveProduct(product);
-    }
+    public Product saveProduct(@RequestBody Product product) { return productService.saveProduct(product);}
 
     @PostMapping("/addproducts")
-    public List<Product> saveProducts(List<Product> products) {
-        return productService.saveProducts(products);
-    }
+    public List<Product> saveProducts(List<Product> products) {return productService.saveProducts(products);}
 
     @GetMapping("/products")
     public List<Product> getProducts() {

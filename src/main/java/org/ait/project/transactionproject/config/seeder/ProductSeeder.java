@@ -1,4 +1,4 @@
-package org.ait.project.transactionproject.modules.product.service.seeder;
+package org.ait.project.transactionproject.config.seeder;
 
 import org.ait.project.transactionproject.modules.customer.model.entity.Customer;
 import org.ait.project.transactionproject.modules.customer.model.repository.CustomerRepository;
@@ -16,10 +16,10 @@ public class ProductSeeder implements CommandLineRunner {
     @Override
     //Seeding Customer data...
     public void run(String... args) throws Exception {
-        loadCustomerData();
+        loadProductData();
     }
 
-    private void loadCustomerData() {
+    private void loadProductData() {
         if (productRepository.count() == 0) {
             Product product1 = new Product("Xiaomi", 5, "3000000");
             Product product2 = new Product("Samsung", 5, "5000000");
