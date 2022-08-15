@@ -19,9 +19,20 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column(name = "email")
-    private String quantity;
+    private String email;
 
     @Column(name = "address")
-    private String price;
+    private String address;
+
+
+    public Customer(String name, String email, String address, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+    }
 }
