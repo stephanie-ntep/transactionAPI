@@ -4,10 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.ait.project.transactionproject.modules.customer.dto.response.CustomerDTO;
 import org.ait.project.transactionproject.modules.customer.model.entity.Customer;
 import org.ait.project.transactionproject.modules.customer.model.repository.CustomerRepository;
+import org.ait.project.transactionproject.modules.customer.service.delegate.CustomerServiceDelegate;
 import org.ait.project.transactionproject.modules.customer.service.internal.CustomerService;
+import org.ait.project.transactionproject.modules.customer.transform.CustomerMapper;
+import org.ait.project.transactionproject.shared.constant.enums.ResponseEnum;
+import org.ait.project.transactionproject.shared.dto.template.ResponseDetail;
+import org.ait.project.transactionproject.shared.dto.template.ResponseTemplate;
+import org.ait.project.transactionproject.shared.utils.ResponseHelper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,37 +23,14 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
-//    @Override
-//    public List<Customer> getCustomers(){
-//        return customerRepository.findAll();
-//    }
-//
-//    @Override
-//    public Customer getCustomerById(int id){
-//        return customerRepository.findById(id).orElse(null);
-//    }
-//
-//    @Override
-//    public String deleteCustomer(int id){
-//        customerRepository.deleteById(id);
-//        return "Successful to delete customer with Id = "+id;
-//    }
-
-    public List<CustomerDTO> getAllCustomers(){
-        return customerRepository.findAll()
-                .stream()
-                .map(this::convertEntityToDto)
-                .collect(Collectors.toList());
+    @Override
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
     }
 
-
-    private CustomerDTO convertEntityToDto(Customer customer){
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(customer.getId());
-        customerDTO.setName(customer.getName());
-        customerDTO.setEmail(customer.getEmail());
-        customerDTO.setPhoneNumber(customer.getPhoneNumber());
-        customerDTO.setAddress(customer.getAddress());
-        return customerDTO;
+    @Override
+    public Optional<Customer> findById(int id) {
+        return customerRepository.findById(id);
     }
+
 }
