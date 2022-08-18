@@ -3,12 +3,12 @@ package org.ait.project.transactionproject.modules.customer.service.internal.imp
 import lombok.RequiredArgsConstructor;
 import org.ait.project.transactionproject.modules.customer.dto.response.CustomerDTO;
 import org.ait.project.transactionproject.modules.customer.model.entity.Customer;
-import org.ait.project.transactionproject.modules.customer.model.repository.CustomerRepository;
 import org.ait.project.transactionproject.modules.customer.service.delegate.CustomerServiceDelegate;
 import org.ait.project.transactionproject.modules.customer.service.internal.CustomerService;
 import org.ait.project.transactionproject.modules.customer.transform.CustomerMapper;
 import org.ait.project.transactionproject.shared.constant.enums.ResponseEnum;
 import org.ait.project.transactionproject.shared.dto.template.ResponseDetail;
+import org.ait.project.transactionproject.shared.dto.template.ResponseList;
 import org.ait.project.transactionproject.shared.dto.template.ResponseTemplate;
 import org.ait.project.transactionproject.shared.utils.ResponseHelper;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +16,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    private final CustomerRepository customerRepository;
+    private final ResponseHelper responseHelper;
+
+    private final CustomerServiceDelegate customerDelegate;
+
+    private final CustomerMapper customerTransform;
 
     @Override
-    public List<Customer> getAllCustomers(){
-        return customerRepository.findAll();
-    }
+    public ResponseEntity<ResponseTemplate<ResponseList<CustomerDTO>>> getAllJsonPlaceHolderCustomer() {
+        List<Customer> customerList = customerDelegate.getCustomers();
 
-    @Override
-    public Optional<Customer> findById(int id) {
-        return customerRepository.findById(id);
+        return responseHelper.createResponseCollection(ResponseEnum.SUCCESS, null,
+                customerTransform.toCustomersDto(customerList));
     }
 
 }

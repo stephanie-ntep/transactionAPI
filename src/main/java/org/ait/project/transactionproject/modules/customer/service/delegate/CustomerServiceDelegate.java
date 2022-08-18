@@ -6,7 +6,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerServiceDelegate {
-    List<Customer> getAllCustomer();
-
-    Optional<Customer> getByCustomerId(Integer id);
+    List<Customer> getCustomers();
 }
