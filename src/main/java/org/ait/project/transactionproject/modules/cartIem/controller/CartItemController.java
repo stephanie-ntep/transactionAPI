@@ -1,44 +1,41 @@
 package org.ait.project.transactionproject.modules.cartIem.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.ait.project.transactionproject.modules.cartIem.model.entity.CartItem;
-import org.ait.project.transactionproject.modules.cartIem.service.CartItemService;
+import org.ait.project.transactionproject.modules.cartIem.dto.request.CartRequest;
+import org.ait.project.transactionproject.modules.cartIem.dto.response.CartResponse;
+import org.ait.project.transactionproject.modules.cartIem.service.internal.CartItemService;
+import org.ait.project.transactionproject.shared.dto.template.ResponseDetail;
+import org.ait.project.transactionproject.shared.dto.template.ResponseList;
+import org.ait.project.transactionproject.shared.dto.template.ResponseTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
-@RequiredArgsConstructor
-public class CartItemController implements CartItemService{
-    private final CartItemService cartItemService;
+@RequestMapping("/api")
+public class CartItemController implements CartItemService {
 
-    @PutMapping("/updatecartItem")
-    public CartItem updateCartItem(@RequestBody CartItem cartItem){
-        return cartItemService.updateCartItem(cartItem);
+    private final CartItemService cartService;
+
+    @Override
+    @GetMapping("/carts")
+    public ResponseEntity<ResponseTemplate<ResponseList<CartResponse>>> getAllCarts() {
+        return cartService.getAllCarts();
     }
 
-    @PostMapping("/addcartItem")
-    public CartItem saveCartItem(CartItem cartItem) {
-        return cartItemService.saveCartItem(cartItem);
+    @Override
+    @GetMapping("cart/{id}")
+    public ResponseEntity<ResponseTemplate<ResponseDetail<CartResponse>>> getCartById(@PathVariable Integer id) {
+        return cartService.getCartById(id);
     }
 
-    @PostMapping("/addcartItems")
-    public List<CartItem> saveCartItems(List<CartItem> cartItems) {
-        return cartItemService.saveCartItems(cartItems);
-    }
-
-    @GetMapping("/cartItems")
-    public List<CartItem> getCartItems() {
-        return cartItemService.getCartItems();
-    }
-
-    @GetMapping("/cartItem/{id}")
-    public CartItem getCartItemById(@PathVariable int id) {
-        return cartItemService.getCartItemById(id);
-    }
-
-    @DeleteMapping("/deletecartItem/{id}")
-    public String deleteCartItem(@PathVariable int id){
-        return cartItemService.deleteCartItem(id);
+    @Override
+    @PostMapping("/addCart")
+    public ResponseEntity<ResponseTemplate<ResponseDetail<CartResponse>>> addCart(@Valid @RequestBody CartRequest cartRequest) {
+        return cartService.addCart(cartRequest);
     }
 }

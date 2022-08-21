@@ -3,8 +3,10 @@ package org.ait.project.transactionproject.modules.customer.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ait.project.transactionproject.modules.cartIem.model.entity.CartItem;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity

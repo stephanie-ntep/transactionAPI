@@ -7,6 +7,8 @@ import org.ait.project.transactionproject.modules.customer.model.entity.Customer
 import org.ait.project.transactionproject.modules.product.model.entity.Product;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,47 +18,71 @@ import javax.persistence.*;
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name="product_id")
-    private Product product;
+    @Column(name = "product_id")
+    private Integer productId;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id")
-    private Customer customer;
+    @Column(name = "customer_id")
+    private Integer customerId;
 
-    private int quantity;
+//    @ManyToOne
+//    @JoinColumn(name="product_id")
+//    private Product product;
+//
+//    @ManyToOne
+//    @JoinColumn(name="customer_id")
+//    private Customer customer;
 
-    public int getId() {
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
+//
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
+
+
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }

@@ -1,40 +1,39 @@
 package org.ait.project.transactionproject.modules.product.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.ait.project.transactionproject.modules.product.model.entity.Product;
-import org.ait.project.transactionproject.modules.product.service.ProductService;
+import lombok.AllArgsConstructor;
+import org.ait.project.transactionproject.modules.product.dto.request.ProductRequest;
+import org.ait.project.transactionproject.modules.product.dto.response.ProductResponse;
+import org.ait.project.transactionproject.modules.product.service.internal.ProductService;
+import org.ait.project.transactionproject.shared.dto.template.ResponseDetail;
+import org.ait.project.transactionproject.shared.dto.template.ResponseList;
+import org.ait.project.transactionproject.shared.dto.template.ResponseTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
+
+@AllArgsConstructor
 @RestController
-@RequiredArgsConstructor
+@RequestMapping("/api")
 public class ProductController implements ProductService {
     private final ProductService productService;
 
-    @PutMapping("/updateproduct/{id}")
-    public Product updateProduct(@RequestBody Product product){
-        return productService.updateProduct(product);
-    }
-
-    @PostMapping("/addproduct")
-    public Product saveProduct(@RequestBody Product product) { return productService.saveProduct(product);}
-
-    @PostMapping("/addproducts")
-    public List<Product> saveProducts(List<Product> products) {return productService.saveProducts(products);}
-
+    @Override
     @GetMapping("/products")
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    public ResponseEntity<ResponseTemplate<ResponseList<ProductResponse>>> getAllProducts() {
+        return productService.getAllProducts();
     }
 
+    @Override
     @GetMapping("/product/{id}")
-    public Product getProductById(@PathVariable int id) {
+    public ResponseEntity<ResponseTemplate<ResponseDetail<ProductResponse>>> getProductById(@PathVariable Integer id) {
         return productService.getProductById(id);
     }
 
-    @DeleteMapping("/deleteproduct/{id}")
-    public String deleteProduct(@PathVariable int id){
-        return productService.deleteProduct(id);
+    @Override
+    @PostMapping("/addproduct")
+    public ResponseEntity<ResponseTemplate<ResponseDetail<ProductResponse>>> addProduct(@Valid @RequestBody ProductRequest productRequest) {
+        return productService.addProduct(productRequest);
     }
 }
